@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="KoensWoźnica">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/KoensWoźnica.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
