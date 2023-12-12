@@ -4,9 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class RandNumberClass {
-    private static final int NUM_ARRAYS = 500;
-    private static final int INITIAL_SIZE = 3;
-    private static final int SIZE_INCREMENT = 3;
+    private static final int NUM_ARRAYS = 150;
+    private static final int INITIAL_SIZE = 2;
+    private static final int SIZE_INCREMENT = 2;
 
     private int[][] arrays;
 
@@ -31,7 +31,8 @@ public class RandNumberClass {
     }
 
     private void writeToCSV(String fileName) {
-        try (FileWriter writer = new FileWriter(fileName)) {
+        String filePath = "../Data/" + fileName; // Updated file path
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (int[] array : arrays) {
                 String line = Arrays.toString(array)
                         .replaceAll("[\\[\\] ]", "")

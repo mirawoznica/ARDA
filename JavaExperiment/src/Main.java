@@ -209,7 +209,7 @@ public class Main {
     public static void main(String[] args) {
         // Sample arrays for testing
         List<int[]> testArraysList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("test_arrays.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("../Data/test_arrays.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 int[] arr = parseLineToArray(line);
@@ -262,9 +262,10 @@ public class Main {
     }
 
     private static void writeToFile(String content, String fileName) throws IOException {
-        FileWriter writer = new FileWriter(fileName);
-        writer.write(content);
-        writer.close();
+        String filePath = "../Data/" + fileName; // Updated file path
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(content);
+        }
     }
 
     private static int[] parseLineToArray(String line) {
