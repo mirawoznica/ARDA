@@ -1,27 +1,32 @@
-\documentclass{article}
+\documentclass[]{report}
+\renewcommand\thesection{\arabic{section}}%for page numbering in arabics
+\usepackage{graphicx,tabularx}%for figures and tables
+\usepackage[utf8]{inputenc} %allows special characters such as ä, ö, ỳ
+\usepackage[english]{babel}  %set the language to English
+\usepackage[margin=1.5in]{geometry} %change page margins 
+\usepackage{sectsty}%section headers
 
-% Page Layout and text
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
-\usepackage[style=numeric, sorting=none]{biblatex}
-\linespread{1.2}
-\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1,75cm]{geometry}
-\usepackage{authblk}{\normalfont}
-\usepackage[compact]{titlesec}
-\usepackage{sectsty}
+\setcounter{secnumdepth}{3}
+
+
 \allsectionsfont{\sffamily\large}
 \subsectionfont{\sffamily\normalsize}
-\setlength\parindent{0pt}
-\usepackage{lipsum}
+\linespread{1.2}% line distance
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+\usepackage{caption}%use for captions on tables
+\usepackage[backend=bibtex,style=authoryear,bibstyle=authoryear,sorting=nyt,firstinits=true]{biblatex}
+\setlength\parindent{0pt}%include this so that your paragraphs don't indent automatically
+\usepackage[compact]{titlesec}%include title formatting package
+\usepackage{graphicx}
 
-% Figures
-\usepackage{graphicx,tabularx}
-\usepackage{caption}
 
 % References
 \addbibresource{KoensWoźnica.bib}
 %\usepackage[backend=bibtex,style=authoryear,bibstyle=authoryear,sorting=nyt,firstinits=true]{biblatex}
+
+\subsubsectionfont{\sffamily\small}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
 
 
 
@@ -29,62 +34,33 @@
 \title{How does a system's runtime change based on its running search algorithm?}
 \author{Jonas Koens and Mira Woźnica}
 \affil{Module: ARDA\\Fontys University of Applied Sciences \\Venlo, Limburg, Netherlands}
+\date{December 18th 2023 \\Module: ARDA \\Venlo, Limburg, Netherlands}
 
 
 
 \begin{document}
-
 \maketitle
 
-\clearpage
-
-
-
 \begin{abstract}
-\pagenumbering{roman}
-\setcounter{page}{2}
 
 This is the nice abstract
-
+\pagenumbering{roman}
 \end{abstract}
-\clearpage
-
 
 
 \tableofcontents
-
 \setcounter{page}{3}
-%\listoffigures %UNCOMMENT IF YOU HAVE FIGURES
+\listoffigures %UNCOMMENT IF YOU HAVE FIGURES
 %\listoftables %UNCOMMENT IF YOU HAVE TABLES
-\pagebreak
+
+\pagenumbering{arabic}	
 
 
-\pagenumbering{arabic}
-
-
-
-\section{Introduction}
-This is the introduction.
-\subsection{Some subsection}
-
-This is the first subsection of the introduction.
-
-
-
-\section{Methods}
-
-
-
-\section{Results}
-
-
-
-\section{Discussion}
-
-
-\end{document}
-	
+\include{Introduction}
+\include{Methods}
+\include{Results}
+\include{Discussion}
+\include{Appendix}	
 	
 \printbibliography[title=References]
-	
 \end{document}
