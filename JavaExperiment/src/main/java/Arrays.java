@@ -1,3 +1,5 @@
+package main.java;
+
 public class Arrays {
     int[] arr1 = {};
     int[] arr2 = {};
@@ -11,9 +13,7 @@ public class Arrays {
     int[] arr10 = {};
     int[] arr11 = {};
     int[] arr12 = {};
-
     int[] arr13 = {};
-
     int[] arr14 = {};
     int[] arr15 = {};
 

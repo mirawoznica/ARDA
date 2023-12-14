@@ -1,4 +1,5 @@
-import java.io.*;
+package main.java;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -209,7 +210,7 @@ public class Main {
     public static void main(String[] args) {
         // Sample arrays for testing
         List<int[]> testArraysList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("../Data/test_arrays.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Data/test_arrays.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 int[] arr = parseLineToArray(line);
@@ -262,7 +263,7 @@ public class Main {
     }
 
     private static void writeToFile(String content, String fileName) throws IOException {
-        String filePath = "../Data/" + fileName; // Updated file path
+        String filePath = "Data/" + fileName; // Updated file path
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(content);
         }
