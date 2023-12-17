@@ -5,6 +5,9 @@ import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
 
+// class for writing values for arrays
+// 150 arrays from size 2 to 300 <- increases by 2
+
 public class RandNumberClass {
     private static final int NUM_ARRAYS = 150;
     private static final int INITIAL_SIZE = 2;
@@ -27,13 +30,13 @@ public class RandNumberClass {
             for (int j = 0; j < size; j++) {
                 arrays[i][j] = random.nextInt(1000); // Random numbers up to 1000
             }
-            Arrays.sort(arrays[i]); // Sort the array
+            //Arrays.sort(arrays[i]); // Sort the array
             size += SIZE_INCREMENT; // Increase the size for the next array
         }
     }
 
     private void writeToCSV(String fileName) {
-        String filePath = "../Data/" + fileName; // Updated file path
+        String filePath = "Data/" + fileName; // Updated file path
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int[] array : arrays) {
                 String line = Arrays.toString(array)
@@ -56,7 +59,7 @@ public class RandNumberClass {
 
         // Example: Print the sorted arrays
         for (int i = 0; i < arrays.length; i++) {
-            System.out.println("Array " + (i + 1) + " (Size " + arrays[i].length + "): " + Arrays.toString(arrays[i]));
+            System.out.println("Array " + (i + 1) + " (Size " + arrays[i].length + "): " + Arrays.toString(arrays[i]) + "\n");
         }
     }
 }
