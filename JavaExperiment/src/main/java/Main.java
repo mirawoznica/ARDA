@@ -2,6 +2,7 @@ package main.java;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -271,63 +272,98 @@ public class Main {
         // Convert List to array for easier handling
         int[][] testArrays = testArraysList.toArray(new int[0][]);
 
-        StringBuilder csvOutput = new StringBuilder();
-        csvOutput.append("Sort Algorithm");
+        StringBuilder csvTimes = new StringBuilder();
+        csvTimes.append("Sort Algorithm");
+
+        StringBuilder csvComparisons = new StringBuilder();
+
+
         for (int i = 0; i < testArrays.length; i++) {
-            csvOutput.append(",Comparisons on Array ").append(i + 1).append(" (count)");
+            csvComparisons.append(",Comparisons on Array ").append(i + 1).append(" (count)");
+            csvTimes.append(",Time to sort ").append(i + 1).append(" (nanoseconds)");
         }
-        csvOutput.append("\n");
+        csvComparisons.append("\n");
+        csvTimes.append("\n");
+
 
         // Function to test sorting algorithms
-        BiFunction<String, SortFunction, String> testFunction = (name, function) -> {
+        BiFunction<String, SortFunction, String> testComparisonsFunction = (name, function) -> {
             StringBuilder result = new StringBuilder(name);
             for (int[] arr : testArrays) {
-                result.append(",").append(testSortingAlgorithm(arr.clone(), function));
+                result.append(",").append(testSortingComparisons(arr.clone(), function));
             }
             return result.toString();
         };
 
+        BiFunction<String, SortFunction, String> testTimeFunction = (name, function) -> {
+            StringBuilder result = new StringBuilder(name);
+            for (int[] arr : testArrays) {
+                result.append(",").append(testSortingTime(arr.clone(), function));
+            }
+            return result.toString();
+        };
+
+
         // Running tests for each sorting algorithm
-        csvOutput.append(testFunction.apply("Bubble Sort", Main::bubbleSort)).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Bubble Sort", Main::bubbleSort)).append("\n");
+        csvTimes.append(testTimeFunction.apply("Bubble Sort", Main::bubbleSort)).append("\n");
         System.out.println("Comparisons count for bubble sort was written");
 
-        csvOutput.append(testFunction.apply("Heap Sort", Main::heapSort)).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Heap Sort", Main::heapSort)).append("\n");
+        csvTimes.append(testTimeFunction.apply("Heap Sort", Main::heapSort)).append("\n");
         System.out.println("Comparisons count for heap sort was written");
 
-        csvOutput.append(testFunction.apply("Insertion Sort", Main::insertionSort)).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Insertion Sort", Main::insertionSort)).append("\n");
+        csvTimes.append(testTimeFunction.apply("Insertion Sort", Main::insertionSort)).append("\n");
         System.out.println("Comparisons count for insertion sort was written");
 
-        csvOutput.append(testFunction.apply("Merge Sort", array -> mergeSort(array, 0, array.length - 1))).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Merge Sort", array -> mergeSort(array, 0, array.length - 1))).append("\n");
+        csvTimes.append(testTimeFunction.apply("Merge Sort", array -> mergeSort(array, 0, array.length - 1))).append("\n");
         System.out.println("Comparisons count for merge sort was written");
 
-        csvOutput.append(testFunction.apply("Quick Sort", array -> quickSort(array, 0, array.length - 1))).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Quick Sort", array -> quickSort(array, 0, array.length - 1))).append("\n");
+        csvTimes.append(testTimeFunction.apply("Quick Sort", array -> quickSort(array, 0, array.length - 1))).append("\n");
         System.out.println("Comparisons count for quick sort was written");
 
-        csvOutput.append(testFunction.apply("Selection Sort", Main::selectionSort)).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Selection Sort", Main::selectionSort)).append("\n");
+        csvTimes.append(testTimeFunction.apply("Selection Sort", Main::selectionSort)).append("\n");
         System.out.println("Comparisons count for selection sort was written");
 
-        csvOutput.append(testFunction.apply("Shell Sort", Main::shellSort)).append("\n");
+        csvComparisons.append(testComparisonsFunction.apply("Shell Sort", Main::shellSort)).append("\n");
+        csvTimes.append(testTimeFunction.apply("Shell Sort", Main::shellSort)).append("\n");
         System.out.println("Comparisons count for shell sort was written");
 
         try {
-            writeToFile(csvOutput.toString());
+            writeToFileComparisons(csvComparisons.toString());
+            writeToFileTimes(csvTimes.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static long testSortingAlgorithm(int[] arr, SortFunction function) {
-//        long startTime = System.nanoTime();
-//        function.sort(arr);
-//        long endTime = System.nanoTime();
-
+    private static long testSortingComparisons(int[] arr, SortFunction function) {
         long operations = function.sort(arr);
 
         return operations;
     }
 
-    private static void writeToFile(String content) throws IOException {
-        String filePath = "Data/sorting_algorithm_times.csv"; // Updated file path
+    private static long testSortingTime(int[] arr, SortFunction function) {
+        long startTime = System.nanoTime();
+        function.sort(arr);
+        long endTime = System.nanoTime();
+
+        return endTime - startTime;
+    }
+
+    private static void writeToFileComparisons(String content) throws IOException {
+        String filePath = "Data/sorting_comparisons.csv"; // Updated file path
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(content);
+        }
+    }
+
+    private static void writeToFileTimes(String content) throws IOException {
+        String filePath = "Data/sorting_times.csv"; // Updated file path
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(content);
         }
